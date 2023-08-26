@@ -1,0 +1,32 @@
+{
+  "name": "multiplayer-tic-tac-toe",
+  "version": "1.0.0",
+  "description": "Multiplayer Tic Tac Toe",
+  "main": "server.js",
+  "scripts": {
+    "setup": "./setup.sh",
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "lint": "eslint .",
+    "test": "node --test",
+    "coverage": "nyc npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nCoder24/multiplayer-tic-tac-toe.git"
+  },
+  "keywords": [
+    "multiplayer-game",
+    "tic-tac-toe"
+  ],
+  "author": "nCoder24",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nCoder24/multiplayer-tic-tac-toe/issues"
+  },
+  "homepage": "https://github.com/nCoder24/multiplayer-tic-tac-toe#readme",
+  "devDependencies": {
+    "eslint": "^8.48.0",
+    "nyc": "^15.1.0"
+  }
+}
