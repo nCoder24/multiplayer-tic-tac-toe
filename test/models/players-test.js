@@ -4,11 +4,11 @@ const Player = require("../../src/models/player");
 const Players = require("../../src/models/players");
 
 describe("Players", () => {
-  const player1 = new Player("player1", "X");
-  const player2 = new Player("player2", "O");
-  let players;
+  let player1, player2, players;
 
   beforeEach(() => {
+    player1 = new Player("player1", "X");
+    player2 = new Player("player2", "O");
     players = new Players(player1, player2);
   });
 
