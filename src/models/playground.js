@@ -1,3 +1,5 @@
+const Room = require("./room");
+
 class Playground {
   #rooms;
 
@@ -6,11 +8,11 @@ class Playground {
   }
 
   createRoom(id) {
-    this.#rooms.set(id, {users: []});
+    this.#rooms.set(id, new Room(2));
   }
 
   room(id) {
-    return this.#rooms.get(id);
+    return this.#rooms.get(id)?.details();
   }
 }
 
