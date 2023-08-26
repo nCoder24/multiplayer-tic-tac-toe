@@ -15,20 +15,20 @@ describe("Players", () => {
   describe("switchTurn", () => {
     it("should get the first player if not switched turn", () => {
       const { username, symbol } = player1;
-      assert.deepStrictEqual(players.current, { username, symbol });
+      assert.deepStrictEqual(players.current(), { username, symbol });
     });
 
     it("should select the next player on switch turn", () => {
       const { username, symbol } = player2;
       players.switchTurn();
-      assert.deepStrictEqual(players.current, { username, symbol });
+      assert.deepStrictEqual(players.current(), { username, symbol });
     });
 
     it("should alter between players on switch turn", () => {
       const { username, symbol } = player1;
       players.switchTurn();
       players.switchTurn();
-      assert.deepStrictEqual(players.current, { username, symbol });
+      assert.deepStrictEqual(players.current(), { username, symbol });
     });
   });
 
@@ -37,8 +37,8 @@ describe("Players", () => {
       const position = 1;
       players.recordMove(position);
       assert.deepStrictEqual(
-        [...players.moves],
-        [[position, players.current.symbol]]
+        [...players.moves()],
+        [[position, players.current().symbol]]
       );
     });
   });

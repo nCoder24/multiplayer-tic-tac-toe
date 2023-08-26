@@ -17,7 +17,7 @@ class Players {
     this.#current().recordMove(position);
   }
 
-  get moves() {
+  moves() {
     return new Map(
       this.#players.flatMap((player) =>
         player.moves.map((pos) => [pos, player.symbol])
@@ -25,7 +25,7 @@ class Players {
     );
   }
 
-  get current() {
+  current() {
     const { username, symbol } = this.#current();
     return { username, symbol };
   }
