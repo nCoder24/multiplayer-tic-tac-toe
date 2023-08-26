@@ -12,7 +12,7 @@ const joinRoom = (req, res) => {
   res.send(`<h1>joined room ${id}</h1>`);
 };
 
-const createGameRouter = (context) => {
+const createPlaygroundRouter = (context) => {
   const gameRouter = express.Router();
 
   gameRouter.use((req, _res, next) => {
@@ -26,4 +26,4 @@ const createGameRouter = (context) => {
   return gameRouter;
 };
 
-module.exports = { createGameRouter };
+module.exports = { createPlaygroundRouter };

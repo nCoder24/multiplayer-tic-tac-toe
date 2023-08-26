@@ -1,10 +1,10 @@
 const request = require("supertest");
 const { describe, it, beforeEach } = require("node:test");
-const { createGameRouter } = require("../../src/routers/game-router");
+const { createPlaygroundRouter } = require("../../src/routers/playground-router");
 const { createApp } = require("../../src/routers/app");
 const Playground = require("../../src/models/playground");
 
-describe("Game API", () => {
+describe("Playground API", () => {
   let gameRouter, app, context, playground, idGenerator;
 
   beforeEach(() => {
@@ -17,7 +17,7 @@ describe("Game API", () => {
     };
 
     context = { playground, idGenerator };
-    gameRouter = createGameRouter(context);
+    gameRouter = createPlaygroundRouter(context);
     app = createApp(gameRouter);
   });
 
