@@ -28,4 +28,12 @@ describe("Players", () => {
       assert.strictEqual(players.current, player1);
     });
   });
+
+  describe("recordMove", () => {
+    it("should record the move for current player", () => {
+      const position = 1;
+      players.recordMove(position);
+      assert.deepStrictEqual([...players.moves], [[position, players.current]]);
+    });
+  });
 });

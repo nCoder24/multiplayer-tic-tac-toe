@@ -9,6 +9,16 @@ class Players {
     this.#players.reverse();
   }
 
+  recordMove(position) {
+    this.current.recordMove(position);
+  }
+
+  get moves() {
+    return new Map(this.#players.flatMap((player) =>
+      player.moves.map((pos) => [pos, player])
+    ));
+  }
+
   get current() {
     return this.#players[0];
   }
