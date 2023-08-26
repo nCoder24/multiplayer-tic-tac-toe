@@ -59,4 +59,15 @@ describe("Playground API", () => {
         });
     });
   });
+
+  describe("POST /room/:id/move", () => {
+    it("should start the game with the current members", (_, done) => {
+      const position = 1;
+      request(app)
+        .post("/room/1/move")
+        .send({ position })
+        .expect(204)
+        .end(done);
+    });
+  });
 });

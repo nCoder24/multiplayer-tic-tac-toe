@@ -5,6 +5,8 @@ const Room = require("../../src/models/room");
 describe("Room", () => {
   const user = "user1";
   const otherUser = "user1";
+  const firstSymbol = "X";
+  const secondSymbol = "O";
   let room;
 
   beforeEach(() => {
@@ -53,8 +55,26 @@ describe("Room", () => {
       assert.deepStrictEqual(room.status(), {
         members: [user, otherUser],
         game: {
-          currentPlayer: { username: user, symbol: "X" },
+          currentPlayer: { username: user, symbol: firstSymbol },
           moves: [],
+        },
+      });
+    });
+  });
+
+  describe("makeMove", () => {
+    it("should make move in ongoing game", () => {
+      const position = 1;
+
+      room.add(user);
+      room.add(otherUser);
+      room.startGame();
+      room.makeMove(position);
+      assert.deepStrictEqual(room.status(), {
+        members: [user, otherUser],
+        game: {
+          currentPlayer: { username: otherUser, symbol: secondSymbol },
+          moves: [[position, firstSymbol]],
         },
       });
     });

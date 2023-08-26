@@ -7,20 +7,28 @@ class Playground {
     this.#rooms = new Map();
   }
 
+  #room(id) {
+    return this.#rooms.get(id);
+  }
+
   createRoom(id) {
     this.#rooms.set(id, new Room(2));
   }
 
   joinRoom(id, user) {
-    this.#rooms.get(id).add(user);
-  }
-
-  roomStatus(id) {
-    return this.#rooms.get(id).status();
+    this.#room(id).add(user);
   }
 
   startGame(id) {
-    this.#rooms.get(id).startGame();
+    this.#room(id).startGame();
+  }
+
+  makeMove(id, position) {
+    this.#room(id).makeMove(position);
+  }
+
+  roomStatus(id) {
+    return this.#room(id).status();
   }
 }
 

@@ -29,6 +29,10 @@ class Room {
     this.#game = new Game(players);
   }
 
+  makeMove(position) {
+    this.#game.makeMove(position);
+  }
+
   status() {
     return { members: [...this.#members], game: this.#game?.status() || null };
   }

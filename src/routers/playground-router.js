@@ -26,6 +26,13 @@ const startGame = (req, res) => {
   res.status(204).end();
 };
 
+const makeMove = (req, res) => {
+  const roomID = req.params.id;
+  const position = req.body.position;
+  req.context.playground.makeMove(roomID, position);
+  res.status(204).end();
+};
+
 const createPlaygroundRouter = (context) => {
   const gameRouter = express.Router();
 
@@ -38,6 +45,7 @@ const createPlaygroundRouter = (context) => {
   gameRouter.get("/room/:id", joinRoom);
   gameRouter.trace("/room/:id", sendRoomStatus);
   gameRouter.post("/room/:id/play", startGame);
+  gameRouter.post("/room/:id/move", makeMove);
 
   return gameRouter;
 };
