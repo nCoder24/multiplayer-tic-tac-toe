@@ -6,8 +6,10 @@ const {
 const { createApp } = require("../../src/routers/app");
 const Playground = require("../../src/models/playground");
 
+/* eslint-disable max-statements */
 describe("Playground API", () => {
-  const username = "user";
+  const username = "user1";
+  const otherUsername = "user2";
   const playground = new Playground();
   const idGenerator = {
     i: 1,
@@ -43,6 +45,17 @@ describe("Playground API", () => {
       };
 
       request(app).trace("/room/1").expect(200).expect(expectedBody).end(done);
+    });
+  });
+
+  describe("POST /room/:id/play", () => {
+    it("should start the game with the current members", (_, done) => {
+      request(app)
+        .get("/room/1")
+        .set("Cookie", `username=${otherUsername}`)
+        .end(() => {
+          request(app).post("/room/1/play").expect(204).end(done);
+        });
     });
   });
 });

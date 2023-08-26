@@ -20,6 +20,12 @@ const sendRoomStatus = (req, res) => {
   res.json(status);
 };
 
+const startGame = (req, res) => {
+  const roomID = req.params.id;
+  req.context.playground.startGame(roomID);
+  res.status(204).end();
+};
+
 const createPlaygroundRouter = (context) => {
   const gameRouter = express.Router();
 
@@ -28,10 +34,10 @@ const createPlaygroundRouter = (context) => {
     next();
   });
 
-  gameRouter.post("/room/", createRoom);
+  gameRouter.post("/room", createRoom);
   gameRouter.get("/room/:id", joinRoom);
   gameRouter.trace("/room/:id", sendRoomStatus);
-
+  gameRouter.post("/room/:id/play", startGame);
 
   return gameRouter;
 };

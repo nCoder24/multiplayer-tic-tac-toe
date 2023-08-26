@@ -12,11 +12,15 @@ class Playground {
   }
 
   joinRoom(id, user) {
-    this.#rooms.get(id)?.add(user);
+    this.#rooms.get(id).add(user);
   }
 
   roomStatus(id) {
-    return this.#rooms.get(id)?.status();
+    return this.#rooms.get(id).status();
+  }
+
+  startGame(id) {
+    this.#rooms.get(id).startGame();
   }
 }
 
