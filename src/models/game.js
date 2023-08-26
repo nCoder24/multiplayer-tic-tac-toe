@@ -1,12 +1,21 @@
 class Game {
   #players;
-  #isOver;
-  #winner;
+  #status;
 
   constructor(players) {
     this.#players = players;
-    this.#isOver = false;
-    this.#winner = null;
+    this.#status = {};
+  }
+
+  #isTie() {
+    return this.#players.moves().length === 9;
+  }
+
+  #updateStatus() {
+    this.#status.currentPlayer = this.#players.current();
+    this.#status.moves = this.#players.moves();
+    this.#status.isOver = this.#isTie();
+    this.#status.winner = null;
   }
 
   makeMove(position) {
@@ -14,13 +23,10 @@ class Game {
     this.#players.switchTurn();
   }
 
+  // TODO: change it to getter (maybe)
   status() {
-    return {
-      currentPlayer: this.#players.current(),
-      moves: this.#players.moves(),
-      isOver: this.#isOver,
-      winner: this.#winner,
-    };
+    this.#updateStatus();
+    return this.#status;
   }
 }
 

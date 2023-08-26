@@ -15,26 +15,50 @@ describe("Game", () => {
     game = new Game(players);
   });
 
-  describe("status", () => {
-    it("should not be over and have no winner on starting", () => {
-      const {isOver, winner} = game.status();
-      assert.ok(!isOver);
-      assert.ok(!winner);
-    });
-  });
-
   describe("makeMove", () => {
     const position = 9;
 
-    it("should record the move for the current player", () => {
-      game.makeMove(position);
-      assert.deepStrictEqual(game.status().moves, [[position, player1.symbol]]);
+    it("should not be over and have no winner if no moves are made", () => {
+      assert.deepStrictEqual(game.status(), {
+        moves: players.moves(),
+        currentPlayer: players.current(),
+        isOver: false,
+        winner: null,
+      });
     });
 
-    it("should switch the turn after made the move", () => {
-      const { username, symbol } = player2;
+    it("should record the move for the current player and alter turn", () => {
       game.makeMove(position);
-      assert.deepStrictEqual(game.status().currentPlayer, { username, symbol });
+      assert.deepStrictEqual(game.status(), {
+        moves: players.moves(),
+        currentPlayer: players.current(),
+        isOver: false,
+        winner: null,
+      });
+    });
+
+    it("should switch the turn back to first player on even move", () => {
+      game.makeMove(position);
+      game.makeMove(position + 1);
+
+      assert.deepStrictEqual(game.status(), {
+        moves: players.moves(),
+        currentPlayer: players.current(),
+        isOver: false,
+        winner: null,
+      });
+    });
+
+    it("should be tie if maximum (9) moves are made", () => {
+      const moves = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+      moves.forEach((pos) => game.makeMove(pos));
+
+      assert.deepStrictEqual(game.status(), {
+        moves: players.moves(),
+        currentPlayer: players.current(),
+        isOver: true,
+        winner: null,
+      });
     });
   });
 });
