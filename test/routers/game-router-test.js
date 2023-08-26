@@ -4,7 +4,7 @@ const { createGameRouter } = require("../../src/routers/game-router");
 const { createApp } = require("../../src/routers/app");
 
 describe("Game API", () => {
-  describe("GET /game/random", () => {
+  describe("POST /game/random", () => {
     it("should create a new game request", (_, done) => {
       const gameRouter = createGameRouter();
       const app = createApp(gameRouter);
