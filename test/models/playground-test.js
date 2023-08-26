@@ -8,7 +8,7 @@ describe("Playground", () => {
       const playground = new Playground();
       const id = "room";
       playground.createRoom(id);
-      assert.deepStrictEqual(playground.getRoom(id), { members: [] });
+      assert.deepStrictEqual(playground.roomStatus(id), { members: [] });
     });
   });
 
@@ -19,7 +19,7 @@ describe("Playground", () => {
       const user = "user";
       playground.createRoom(id);
       playground.joinRoom(id, user);
-      assert.deepStrictEqual(playground.getRoom(id), { members: [user] });
+      assert.deepStrictEqual(playground.roomStatus(id), { members: [user] });
     });
   });
 });

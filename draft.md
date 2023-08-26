@@ -10,7 +10,7 @@
 - Users
 
   - users: [User]
-  - register(userDetails): Void
+  - register(userstatus): Void
   - verify(username, password): Boolean
 
 - Player

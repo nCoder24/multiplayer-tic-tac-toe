@@ -14,6 +14,12 @@ const joinRoom = (req, res) => {
   res.send(`<h1>joined room ${id}</h1>`);
 };
 
+const sendRoomStatus = (req, res) => {
+  const id = req.params.id;
+  const status = req.context.playground.roomStatus(id);
+  res.json(status);
+};
+
 const createPlaygroundRouter = (context) => {
   const gameRouter = express.Router();
 
@@ -24,6 +30,8 @@ const createPlaygroundRouter = (context) => {
 
   gameRouter.post("/room/", createRoom);
   gameRouter.get("/room/:id", joinRoom);
+  gameRouter.trace("/room/:id", sendRoomStatus);
+
 
   return gameRouter;
 };

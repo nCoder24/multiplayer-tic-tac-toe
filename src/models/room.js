@@ -15,7 +15,7 @@ class Room {
     this.#members.push(user);
   }
 
-  details() {
+  status() {
     return { members: [...this.#members] };
   }
 }

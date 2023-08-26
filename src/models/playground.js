@@ -15,10 +15,9 @@ class Playground {
     this.#rooms.get(id)?.add(user);
   }
 
-  getRoom(id) {
-    return this.#rooms.get(id)?.details();
+  roomStatus(id) {
+    return this.#rooms.get(id)?.status();
   }
-
 }
 
 module.exports = Playground;

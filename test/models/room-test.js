@@ -14,13 +14,13 @@ describe("Room", () => {
   describe("add", () => {
     it("should add a member for the first time", () => {
       room.add(user);
-      assert.deepStrictEqual(room.details(), { members: [user] });
+      assert.deepStrictEqual(room.status(), { members: [user] });
     });
 
     it("should add a member after the existing members", () => {
       room.add(user);
       room.add(otherUser);
-      assert.deepStrictEqual(room.details(), { members: [user, otherUser] });
+      assert.deepStrictEqual(room.status(), { members: [user, otherUser] });
     });
   });
 
