@@ -32,9 +32,11 @@ describe("Playground API", () => {
   });
 
   describe("GET /room/:id", () => {
+    const username = "user";
     it("should join a room", (_, done) => {
       request(app)
         .get("/room/1")
+        .set("Cookie", `username=${username}`)
         .expect(200)
         .end(done);
     });

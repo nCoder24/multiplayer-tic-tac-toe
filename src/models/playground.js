@@ -11,8 +11,8 @@ class Playground {
     this.#rooms.set(id, new Room(2));
   }
 
-  joinRoom(id) {
-    this.#rooms.get(id)?.add(id);
+  joinRoom(id, user) {
+    this.#rooms.get(id)?.add(user);
   }
 
   getRoom(id) {

@@ -8,7 +8,9 @@ const createRoom = (req, res) => {
 
 const joinRoom = (req, res) => {
   const id = req.params.id;
-  req.context.playground.joinRoom(id);
+  const username = req.cookies.username;
+
+  req.context.playground.joinRoom(id, username);
   res.send(`<h1>joined room ${id}</h1>`);
 };
 

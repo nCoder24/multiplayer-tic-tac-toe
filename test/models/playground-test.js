@@ -16,9 +16,10 @@ describe("Playground", () => {
     it("should join an existing room", () => {
       const playground = new Playground();
       const id = "room";
+      const user = "user";
       playground.createRoom(id);
-      playground.joinRoom(id);
-      assert.deepStrictEqual(playground.getRoom(id), { members: [id] });
+      playground.joinRoom(id, user);
+      assert.deepStrictEqual(playground.getRoom(id), { members: [user] });
     });
   });
 });
