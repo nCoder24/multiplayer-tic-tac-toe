@@ -8,7 +8,17 @@ describe("Playground", () => {
       const playground = new Playground();
       const id = "room";
       playground.createRoom(id);
-      assert.deepStrictEqual(playground.room(id), { members: [] });
+      assert.deepStrictEqual(playground.getRoom(id), { members: [] });
+    });
+  });
+
+  describe("joinRoom", () => {
+    it("should join an existing room", () => {
+      const playground = new Playground();
+      const id = "room";
+      playground.createRoom(id);
+      playground.joinRoom(id);
+      assert.deepStrictEqual(playground.getRoom(id), { members: [id] });
     });
   });
 });

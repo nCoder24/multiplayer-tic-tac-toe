@@ -11,9 +11,14 @@ class Playground {
     this.#rooms.set(id, new Room(2));
   }
 
-  room(id) {
+  joinRoom(id) {
+    this.#rooms.get(id)?.add(id);
+  }
+
+  getRoom(id) {
     return this.#rooms.get(id)?.details();
   }
+
 }
 
 module.exports = Playground;
