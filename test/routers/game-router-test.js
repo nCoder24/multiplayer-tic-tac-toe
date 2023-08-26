@@ -21,12 +21,21 @@ describe("Game API", () => {
     app = createApp(gameRouter);
   });
 
-  describe("POST /game", () => {
+  describe("POST /room", () => {
     it("should create a new room for game", (_, done) => {
       request(app)
-        .post("/game")
+        .post("/room")
         .expect(201)
         .expect({ id: "1" })
+        .end(done);
+    });
+  });
+
+  describe("GET /room/:id", () => {
+    it("should join a room", (_, done) => {
+      request(app)
+        .get("/room/1")
+        .expect(200)
         .end(done);
     });
   });

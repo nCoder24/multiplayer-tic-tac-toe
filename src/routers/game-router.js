@@ -6,6 +6,12 @@ const createRoom = (req, res) => {
   res.status(201).json({ id });
 };
 
+const joinRoom = (req, res) => {
+  const id = req.params.id;
+  req.context.playground.joinRoom(id);
+  res.send(`<h1>joined room ${id}</h1>`);
+};
+
 const createGameRouter = (context) => {
   const gameRouter = express.Router();
 
@@ -14,7 +20,8 @@ const createGameRouter = (context) => {
     next();
   });
 
-  gameRouter.post("/game", createRoom);
+  gameRouter.post("/room/", createRoom);
+  gameRouter.get("/room/:id", joinRoom);
 
   return gameRouter;
 };
