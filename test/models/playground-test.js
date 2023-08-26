@@ -50,6 +50,8 @@ describe("Playground", () => {
         game: {
           currentPlayer: { username: user, symbol: firstSymbol },
           moves: [],
+          isOver: false,
+          winner: null,
         },
       });
     });
@@ -71,6 +73,8 @@ describe("Playground", () => {
         game: {
           currentPlayer: { username: otherUser, symbol: secondSymbol },
           moves: [[position, firstSymbol]],
+          isOver: false,
+          winner: null,
         },
       });
     });

@@ -6,12 +6,21 @@ const Game = require("../../src/models/game");
 
 describe("Game", () => {
   let player1, player2, players, game;
+  // TODO: make both independent
 
   beforeEach(() => {
     player1 = new Player("player1", "X");
     player2 = new Player("player2", "O");
     players = new Players(player1, player2);
     game = new Game(players);
+  });
+
+  describe("status", () => {
+    it("should not be over and have no winner on starting", () => {
+      const {isOver, winner} = game.status();
+      assert.ok(!isOver);
+      assert.ok(!winner);
+    });
   });
 
   describe("makeMove", () => {
