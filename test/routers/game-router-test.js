@@ -1,15 +1,33 @@
 const request = require("supertest");
-const { describe, it } = require("node:test");
+const { describe, it, beforeEach } = require("node:test");
 const { createGameRouter } = require("../../src/routers/game-router");
 const { createApp } = require("../../src/routers/app");
+const Playground = require("../../src/models/playground");
 
 describe("Game API", () => {
-  describe("POST /game/random", () => {
-    it("should create a new game request", (_, done) => {
-      const gameRouter = createGameRouter();
-      const app = createApp(gameRouter);
+  let gameRouter, app, context, playground, idGenerator;
 
-      request(app).post("/game/random").expect(202).end(done);
+  beforeEach(() => {
+    playground = new Playground();
+    idGenerator = {
+      i: 1,
+      new() {
+        return `${this.i++}`;
+      },
+    };
+
+    context = { playground, idGenerator };
+    gameRouter = createGameRouter(context);
+    app = createApp(gameRouter);
+  });
+
+  describe("POST /game", () => {
+    it("should create a new room for game", (_, done) => {
+      request(app)
+        .post("/game")
+        .expect(201)
+        .expect({ id: "1" })
+        .end(done);
     });
   });
 });
