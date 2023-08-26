@@ -17,6 +17,14 @@ class Player {
     return [...this.#moves];
   }
 
+  get symbol() {
+    return this.#symbol;
+  }
+
+  get username() {
+    return this.#username;
+  }
+
   static fromJSON({username, symbol, moves}) {
     const player = new Player(username, symbol);
     player.#moves = [...moves];
