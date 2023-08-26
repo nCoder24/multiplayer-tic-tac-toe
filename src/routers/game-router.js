@@ -1,8 +1,13 @@
 const express = require("express");
-const gameRouter = express.Router();
 
-gameRouter.post("/game/random", (req, res) => {
-  res.status(202).end();
-});
+const createGameRouter = () => {
+  const gameRouter = express.Router();
 
-module.exports = gameRouter;
+  gameRouter.post("/game/random", (req, res) => {
+    res.status(202).end();
+  });
+
+  return gameRouter;
+};
+
+module.exports = { createGameRouter };
