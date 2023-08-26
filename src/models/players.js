@@ -18,10 +18,8 @@ class Players {
   }
 
   moves() {
-    return new Map(
-      this.#players.flatMap((player) =>
-        player.moves.map((pos) => [pos, player.symbol])
-      )
+    return this.#players.flatMap((player) =>
+      player.moves.map((pos) => [pos, player.symbol])
     );
   }
 

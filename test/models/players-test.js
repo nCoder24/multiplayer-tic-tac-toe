@@ -36,10 +36,9 @@ describe("Players", () => {
     it("should record the move for current player", () => {
       const position = 1;
       players.recordMove(position);
-      assert.deepStrictEqual(
-        [...players.moves()],
-        [[position, players.current().symbol]]
-      );
+      assert.deepStrictEqual(players.moves(), [
+        [position, players.current().symbol],
+      ]);
     });
   });
 });

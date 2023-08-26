@@ -10,6 +10,7 @@ class Room {
   constructor(size) {
     this.#size = size;
     this.#members = [];
+    this.#game = null;
   }
 
   isFull() {
@@ -29,7 +30,7 @@ class Room {
   }
 
   status() {
-    return { members: [...this.#members] };
+    return { members: [...this.#members], game: this.#game?.status() || null };
   }
 }
 

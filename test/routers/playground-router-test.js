@@ -42,6 +42,7 @@ describe("Playground API", () => {
     it("should get the updated status", (_, done) => {
       const expectedBody = {
         members: [username],
+        game: null,
       };
 
       request(app).trace("/room/1").expect(200).expect(expectedBody).end(done);

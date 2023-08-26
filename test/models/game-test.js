@@ -19,10 +19,7 @@ describe("Game", () => {
 
     it("should record the move for the current player", () => {
       game.makeMove(position);
-      assert.deepStrictEqual(
-        [...game.status().moves],
-        [[position, player1.symbol]]
-      );
+      assert.deepStrictEqual(game.status().moves, [[position, player1.symbol]]);
     });
 
     it("should switch the turn after made the move", () => {
