@@ -9,7 +9,7 @@ const {
 describe("AuthRouter", () => {
   const playgroundRouter = createPlaygroundRouter();
   const authRouter = createAuthRouter();
-  const app = createApp(playgroundRouter, authRouter);
+  const app = createApp(authRouter, playgroundRouter);
   const username = "user";
 
   describe("POST /auth/login", () => {

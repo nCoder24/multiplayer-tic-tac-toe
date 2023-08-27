@@ -1,14 +1,14 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 
-const createApp = (gameRouter, authRouter) => {
+const createApp = (authRouter, playgroundRouter) => {
   const app = express();
 
   app.use(express.json());
   app.use(cookieParser());
 
   app.use(authRouter);
-  app.use(gameRouter);
+  app.use(playgroundRouter);
 
   return app;
 };

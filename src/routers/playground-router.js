@@ -34,20 +34,20 @@ const makeMove = (req, res) => {
 };
 
 const createPlaygroundRouter = (context) => {
-  const gameRouter = express.Router();
+  const playgroundRouter = express.Router();
 
-  gameRouter.use((req, _res, next) => {
+  playgroundRouter.use((req, _res, next) => {
     req.context = context;
     next();
   });
 
-  gameRouter.post("/room", createRoom);
-  gameRouter.get("/room/:id", joinRoom);
-  gameRouter.trace("/room/:id", sendRoomStatus);
-  gameRouter.post("/room/:id/play", startGame);
-  gameRouter.post("/room/:id/move", makeMove);
+  playgroundRouter.post("/room", createRoom);
+  playgroundRouter.get("/room/:id", joinRoom);
+  playgroundRouter.trace("/room/:id", sendRoomStatus);
+  playgroundRouter.post("/room/:id/play", startGame);
+  playgroundRouter.post("/room/:id/move", makeMove);
 
-  return gameRouter;
+  return playgroundRouter;
 };
 
 module.exports = { createPlaygroundRouter };

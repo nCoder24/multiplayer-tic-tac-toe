@@ -20,9 +20,9 @@ describe("Playground API", () => {
   };
 
   const context = { playground, idGenerator };
-  const gameRouter = createPlaygroundRouter(context);
+  const playgroundRouter = createPlaygroundRouter(context);
   const authRouter = createAuthRouter();
-  const app = createApp(gameRouter, authRouter);
+  const app = createApp(authRouter, playgroundRouter);
 
   describe("POST /room", () => {
     it("should create a new room for game", (_, done) => {
