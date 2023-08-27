@@ -15,6 +15,15 @@ describe("AuthRouter", () => {
   describe("POST /auth/login", () => {
     it("should set an cookie on the user-agent", (_, done) => {
       request(app)
+        .get("/auth/login")
+        .expect(200)
+        .end(done);
+    });
+  });
+
+  describe("POST /auth/login", () => {
+    it("should set an cookie on the user-agent", (_, done) => {
+      request(app)
         .post("/auth/login")
         .send({ username })
         .expect(201)

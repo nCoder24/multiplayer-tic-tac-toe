@@ -6,9 +6,16 @@ const loginUser = (req, res) => {
   res.status(201).end();
 };
 
+const sendLoginPage = (req, res) => {
+  res.sendFile(process.env.PWD + "/pages/login.html");
+};
+
 const createAuthRouter = () => {
   const authRouter = new express.Router();
+
+  authRouter.get("/auth/login", sendLoginPage);
   authRouter.post("/auth/login", loginUser);
+
   return authRouter;
 };
 
