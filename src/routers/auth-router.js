@@ -13,8 +13,8 @@ const sendLoginPage = (req, res) => {
 const createAuthRouter = () => {
   const authRouter = new express.Router();
 
-  authRouter.get("/auth/login", sendLoginPage);
-  authRouter.post("/auth/login", loginUser);
+  authRouter.get("/login", sendLoginPage);
+  authRouter.post("/login", loginUser);
 
   return authRouter;
 };

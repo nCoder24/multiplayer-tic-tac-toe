@@ -24,55 +24,55 @@ describe("Playground API", () => {
   const authRouter = createAuthRouter();
   const app = createApp(authRouter, playgroundRouter);
 
-  describe("GET /room", () => {
+  describe("GET /playground", () => {
     it("should get the playground home", (_, done) => {
-      request(app).get("/room").expect(200).end(done);
+      request(app).get("/playground").expect(200).end(done);
     });
   });
 
-  describe("POST /room", () => {
+  describe("POST /playground", () => {
     it("should create a new room for game", (_, done) => {
-      request(app).post("/room").expect(201).expect({ id: "1" }).end(done);
+      request(app).post("/playground").expect(201).expect({ id: "1" }).end(done);
     });
   });
 
-  describe("GET /room/:id", () => {
+  describe("GET /playground/:id", () => {
     it("should join a room", (_, done) => {
       request(app)
-        .get("/room/1")
+        .get("/playground/1")
         .set("Cookie", `username=${username}`)
         .expect(200)
         .end(done);
     });
   });
 
-  describe("TRACE /room/:id", () => {
+  describe("TRACE /playground/:id", () => {
     it("should get the updated status", (_, done) => {
       const expectedBody = {
         members: [username],
         game: null,
       };
 
-      request(app).trace("/room/1").expect(200).expect(expectedBody).end(done);
+      request(app).trace("/playground/1").expect(200).expect(expectedBody).end(done);
     });
   });
 
-  describe("POST /room/:id/play", () => {
+  describe("POST /playground/:id/play", () => {
     it("should start the game with the current members", (_, done) => {
       request(app)
-        .get("/room/1")
+        .get("/playground/1")
         .set("Cookie", `username=${otherUsername}`)
         .end(() => {
-          request(app).post("/room/1/play").expect(204).end(done);
+          request(app).post("/playground/1/play").expect(204).end(done);
         });
     });
   });
 
-  describe("POST /room/:id/move", () => {
+  describe("POST /playground/:id/move", () => {
     it("should start the game with the current members", (_, done) => {
       const position = 1;
       request(app)
-        .post("/room/1/move")
+        .post("/playground/1/move")
         .send({ position })
         .expect(204)
         .end(done);

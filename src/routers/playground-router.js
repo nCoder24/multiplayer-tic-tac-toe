@@ -33,7 +33,7 @@ const makeMove = (req, res) => {
   res.status(204).end();
 };
 
-const sendPlaygroundPage = (req, res) => {
+const sendPlaygroundHome = (_req, res) => {
   res.sendFile(process.env.PWD + "/pages/playground.html");
 };
 
@@ -45,12 +45,12 @@ const createPlaygroundRouter = (context) => {
     next();
   });
 
-  playgroundRouter.get("/room", sendPlaygroundPage);
-  playgroundRouter.post("/room", createRoom);
-  playgroundRouter.get("/room/:id", joinRoom);
-  playgroundRouter.trace("/room/:id", sendRoomStatus);
-  playgroundRouter.post("/room/:id/play", startGame);
-  playgroundRouter.post("/room/:id/move", makeMove);
+  playgroundRouter.get("/", sendPlaygroundHome);
+  playgroundRouter.post("/", createRoom);
+  playgroundRouter.get("/:id", joinRoom);
+  playgroundRouter.trace("/:id", sendRoomStatus);
+  playgroundRouter.post("/:id/play", startGame);
+  playgroundRouter.post("/:id/move", makeMove);
 
   return playgroundRouter;
 };
