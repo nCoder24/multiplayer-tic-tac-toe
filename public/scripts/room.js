@@ -6,8 +6,18 @@ const getRoomStatus = () => {
   return fetch(resolveURL("status")).then((res) => res.json());
 };
 
-const play = () => {
+const startGame = () => {
   return fetch(resolveURL("play"), { method: "POST" });
+};
+
+const makeMove = ({ target }) => {
+  const position = target.id.split("-")[1];
+
+  return fetch(resolveURL("move"), {
+    method: "POST",
+    body: JSON.stringify({ position }),
+    headers: { "content-type": "application/json" },
+  });
 };
 
 const renderPlayerCard = (card, { username, symbol }) => {
@@ -45,20 +55,30 @@ const renderPlayButton = ({ game, isFull }) => {
   }
 };
 
-const render = (status) => {
+const renderBoard = ({ game }) => {
+  game.moves.forEach(([position, symbol]) => {
+    board.querySelector(`#cell-${position}`).innerText = symbol;
+  });
+};
+
+const renderAll = (status) => {
   renderPlayerCards(status);
   renderPlayButton(status);
+  if(status.game) renderBoard(status);
 };
 
 const keepUpdating = () => {
-  const update = () => getRoomStatus().then(render);
+  const update = () => getRoomStatus().then(renderAll);
   setInterval(update, 2000);
   update();
 };
 
 const main = () => {
   const playBtn = getPlayButton();
-  playBtn.onclick = play;
+  const board = getBoard();
+
+  playBtn.onclick = startGame;
+  board.onclick = makeMove;
 
   keepUpdating();
 };
