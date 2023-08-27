@@ -1,11 +1,16 @@
 const getPlayerList = () => document.querySelector("#players");
+const getPlayButton = () => document.querySelector("#play-btn");
+const getBoard = () => document.querySelector("#board");
 
 const getRoomStatus = () => {
-  const url = resolveURL("status");
-  return fetch(url, { method: "GET" }).then((res) => res.json());
+  return fetch(resolveURL("status")).then((res) => res.json());
 };
 
-const displayPlayerCard = (card, { username, symbol }) => {
+const play = () => {
+  return fetch(resolveURL("play"), { method: "POST" });
+};
+
+const renderPlayerCard = (card, { username, symbol }) => {
   const userElement = document.createElement("p");
   userElement.innerText = username;
 
@@ -20,22 +25,39 @@ const createPlayer = (member, symbol) => ({
   symbol: member ? symbol : "",
 });
 
-const displayPlayerCards = (members) => {
+const renderPlayerCards = ({ members }) => {
   const playerList = getPlayerList();
 
   // TODO: handle it in backend
-  const player1 = createPlayer(menubars[0], "X");
-  const player2 = createPlayer(menubars[1], "O");
+  const player1 = createPlayer(members[0], "X");
+  const player2 = createPlayer(members[1], "O");
 
-  displayPlayerCard(playerList.children[0], player1);
-  displayPlayerCard(playerList.children[1], player2);
+  renderPlayerCard(playerList.children[0], player1);
+  renderPlayerCard(playerList.children[1], player2);
 };
 
-const renderRoom = ({ members }) => {
-  displayPlayerCards(members);
+const renderPlayButton = ({ game, isFull }) => {
+  const isReadyToPlay = () => isFull && (!game || game.isOver);
+  const playBtn = getPlayButton();
+
+  if (!isFull) {
+    playBtn.disabled = true;
+    return;
+  }
+
+  if (!isReadyToPlay()) {
+    playBtn.hidden = true;
+  }
+};
+
+const renderRoom = (status) => {
+  renderPlayerCards(status);
+  renderPlayButton(status);
 };
 
 const main = () => {
+  const playBtn = getPlayButton();
+  playBtn.onclick = play;
   getRoomStatus().then(renderRoom);
 };
 
