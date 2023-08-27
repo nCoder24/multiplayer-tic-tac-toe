@@ -2,4 +2,6 @@
 
 <!-- - add player getters -->
 <!-- - rename getters with logic -->
-add model test in api testing
+
+- add model test in api testing
+- add feature of room admin

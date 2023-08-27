@@ -11,6 +11,7 @@
 }
 
 .player {
+  display: grid;
   border-radius: 5px;
   border: 2px solid gray;
 }
@@ -23,6 +24,11 @@
 
   border-collapse: collapse;
   border-style: hidden;
+}
+
+#play-btn {
+  justify-self: center;
+  padding: 0.5em 0.8em;
 }
 
 .cell {
