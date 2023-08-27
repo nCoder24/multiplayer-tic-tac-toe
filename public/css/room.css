@@ -1,0 +1,31 @@
+#page {
+  gap: 6em;
+}
+
+#players {
+  grid-template: 4em / repeat(2, 15em);
+  display: grid;
+  gap: 1em;
+
+  list-style-type: none;
+}
+
+.player {
+  border-radius: 5px;
+  border: 2px solid gray;
+}
+
+#board {
+  width: 22em;
+  aspect-ratio: 1;
+  padding: 2em;
+  place-self: center;
+
+  border-collapse: collapse;
+  border-style: hidden;
+}
+
+.cell {
+  padding: 0.5em;
+  border: 2.5px solid gray;
+}

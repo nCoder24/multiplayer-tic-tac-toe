@@ -11,7 +11,7 @@ const joinRoom = (req, res) => {
   const username = req.cookies.username;
 
   req.context.playground.joinRoom(id, username);
-  res.send(`<h1>joined room ${id}</h1>`);
+  res.sendFile(process.env.PWD + "/pages/room.html");
 };
 
 const sendRoomStatus = (req, res) => {
