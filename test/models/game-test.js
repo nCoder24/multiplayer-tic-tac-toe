@@ -50,7 +50,7 @@ describe("Game", () => {
     });
 
     it("should be tie if maximum (9) moves are made", () => {
-      const moves = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+      const moves = [1, 2, 3, 7, 5, 6, 4, 9, 8];
       moves.forEach((pos) => game.makeMove(pos));
 
       assert.deepStrictEqual(game.status(), {
@@ -58,6 +58,18 @@ describe("Game", () => {
         currentPlayer: players.current(),
         isOver: true,
         winner: null,
+      });
+    });
+
+    it("should win if player moves match an winning combination", () => {
+      const moves = [1, 4, 2, 5, 3];
+      moves.forEach((pos) => game.makeMove(pos));
+
+      assert.deepStrictEqual(game.status(), {
+        moves: players.moves(),
+        currentPlayer: players.current(),
+        isOver: true,
+        winner: { username: player1.username, symbol: player1.symbol },
       });
     });
   });
