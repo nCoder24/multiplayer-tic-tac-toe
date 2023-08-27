@@ -59,6 +59,7 @@ describe("Room", () => {
           moves: [],
           isOver: false,
           winner: null,
+          isTie: false,
         },
       });
     });
@@ -79,6 +80,7 @@ describe("Room", () => {
           moves: [[position, firstSymbol]],
           isOver: false,
           winner: null,
+          isTie: false,
         },
       });
     });

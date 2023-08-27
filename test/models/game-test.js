@@ -24,6 +24,7 @@ describe("Game", () => {
         currentPlayer: players.current(),
         isOver: false,
         winner: null,
+        isTie: false,
       });
     });
 
@@ -34,6 +35,7 @@ describe("Game", () => {
         currentPlayer: players.current(),
         isOver: false,
         winner: null,
+        isTie: false,
       });
     });
 
@@ -46,6 +48,7 @@ describe("Game", () => {
         currentPlayer: players.current(),
         isOver: false,
         winner: null,
+        isTie: false,
       });
     });
 
@@ -58,6 +61,7 @@ describe("Game", () => {
         currentPlayer: players.current(),
         isOver: true,
         winner: null,
+        isTie: true,
       });
     });
 
@@ -70,6 +74,20 @@ describe("Game", () => {
         currentPlayer: players.current(),
         isOver: true,
         winner: { username: player1.username, symbol: player1.symbol },
+        isTie: false,
+      });
+    });
+
+    it("should should not be a tie if won", () => {
+      const moves = [1, 2, 3, 7, 5, 6, 4, 8, 9];
+      moves.forEach((pos) => game.makeMove(pos));
+
+      assert.deepStrictEqual(game.status(), {
+        moves: players.moves(),
+        currentPlayer: players.current(),
+        isOver: true,
+        winner: { username: player1.username, symbol: player1.symbol },
+        isTie: false,
       });
     });
   });

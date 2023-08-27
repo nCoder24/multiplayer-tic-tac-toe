@@ -1,3 +1,4 @@
+const includes = Array.prototype.includes;
 const winningCombinations = [
   [1, 2, 3],
   [4, 5, 6],
@@ -8,7 +9,6 @@ const winningCombinations = [
   [1, 5, 9],
   [3, 5, 7],
 ];
-const includes = Array.prototype.includes;
 
 class Game {
   #players;
@@ -55,8 +55,9 @@ class Game {
     return {
       currentPlayer: this.#players.current(),
       moves: this.#players.moves(),
-      isOver: this.#isOver, // TODO: keep hasWon also
+      isOver: this.#isOver,
       winner: this.#hasWon ? this.#players.current() : null,
+      isTie: this.#isOver && !this.#hasWon,
     };
   }
 }

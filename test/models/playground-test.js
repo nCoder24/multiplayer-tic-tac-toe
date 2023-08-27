@@ -52,6 +52,7 @@ describe("Playground", () => {
           moves: [],
           isOver: false,
           winner: null,
+          isTie: false,
         },
       });
     });
@@ -75,6 +76,7 @@ describe("Playground", () => {
           moves: [[position, firstSymbol]],
           isOver: false,
           winner: null,
+          isTie: false,
         },
       });
     });
