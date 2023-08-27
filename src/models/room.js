@@ -9,21 +9,22 @@ class Room {
 
   constructor(size) {
     this.#size = size;
-    this.#members = [];
+    this.#members = new Set();
     this.#game = null;
   }
 
   isFull() {
-    return this.#members.length >= this.#size;
+    return this.#members.size >= this.#size;
   }
 
   add(user) {
-    this.#members.push(user);
+    this.#members.add(user);
   }
 
   startGame() {
-    const player1 = new Player(this.#members[0], "X");
-    const player2 = new Player(this.#members[1], "O");
+    const members = [...this.#members];
+    const player1 = new Player(members[0], "X");
+    const player2 = new Player(members[1], "O");
     const players = new Players(player1, player2);
 
     this.#game = new Game(players);

@@ -4,7 +4,7 @@ const Room = require("../../src/models/room");
 
 describe("Room", () => {
   const user = "user1";
-  const otherUser = "user1";
+  const otherUser = "user2";
   const firstSymbol = "X";
   const secondSymbol = "O";
   let room;
@@ -22,8 +22,19 @@ describe("Room", () => {
     it("should add a member after the existing members", () => {
       room.add(user);
       room.add(otherUser);
+
       assert.deepStrictEqual(room.status(), {
         members: [user, otherUser],
+        game: null,
+      });
+    });
+
+    it("should not add duplicate members", () => {
+      room.add(user);
+      room.add(user);
+      
+      assert.deepStrictEqual(room.status(), {
+        members: [user],
         game: null,
       });
     });
@@ -50,8 +61,8 @@ describe("Room", () => {
     it("should start a game", () => {
       room.add(user);
       room.add(otherUser);
-
       room.startGame();
+
       assert.deepStrictEqual(room.status(), {
         members: [user, otherUser],
         game: {
@@ -73,6 +84,7 @@ describe("Room", () => {
       room.add(otherUser);
       room.startGame();
       room.makeMove(position);
+
       assert.deepStrictEqual(room.status(), {
         members: [user, otherUser],
         game: {

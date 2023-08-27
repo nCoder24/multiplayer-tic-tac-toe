@@ -6,8 +6,8 @@ const Playground = require("../../src/models/playground");
 describe("Playground", () => {
   let playground;
   const id = "room";
-  const user = "user";
-  const otherUser = "user";
+  const user = "user1";
+  const otherUser = "user2";
   const firstSymbol = "X";
   const secondSymbol = "O";
 

@@ -26,5 +26,15 @@ module.exports = {
     "no-implicit-globals": "error",
     "no-param-reassign": "error",
     "no-shadow": "error",
-  }
+  },
+
+  overrides: [
+    {
+      files: ["public/scripts/*"],
+      rules: {
+        "no-unused-vars": "off",
+        "no-undef": "off",
+      },
+    },
+  ],
 };
