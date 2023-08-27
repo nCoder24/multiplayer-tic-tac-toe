@@ -33,6 +33,10 @@ const makeMove = (req, res) => {
   res.status(204).end();
 };
 
+const sendPlaygroundPage = (req, res) => {
+  res.sendFile(process.env.PWD + "/pages/playground.html");
+};
+
 const createPlaygroundRouter = (context) => {
   const playgroundRouter = express.Router();
 
@@ -41,6 +45,7 @@ const createPlaygroundRouter = (context) => {
     next();
   });
 
+  playgroundRouter.get("/room", sendPlaygroundPage);
   playgroundRouter.post("/room", createRoom);
   playgroundRouter.get("/room/:id", joinRoom);
   playgroundRouter.trace("/room/:id", sendRoomStatus);

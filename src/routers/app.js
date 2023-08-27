@@ -10,6 +10,8 @@ const createApp = (authRouter, playgroundRouter) => {
   app.use(authRouter);
   app.use(playgroundRouter);
 
+  app.use(express.static("public"));
+
   return app;
 };
 
