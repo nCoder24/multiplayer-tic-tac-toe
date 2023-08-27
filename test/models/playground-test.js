@@ -20,7 +20,8 @@ describe("Playground", () => {
       playground.createRoom(id);
       assert.deepStrictEqual(playground.roomStatus(id), {
         members: [],
-        game: null,
+        game: undefined,
+        isFull: false,
       });
     });
   });
@@ -32,7 +33,8 @@ describe("Playground", () => {
 
       assert.deepStrictEqual(playground.roomStatus(id), {
         members: [user],
-        game: null,
+        game: undefined,
+        isFull: false,
       });
     });
   });
@@ -54,6 +56,7 @@ describe("Playground", () => {
           winner: null,
           isTie: false,
         },
+        isFull: true,
       });
     });
   });
@@ -78,6 +81,7 @@ describe("Playground", () => {
           winner: null,
           isTie: false,
         },
+        isFull: true,
       });
     });
   });

@@ -16,7 +16,11 @@ describe("Room", () => {
   describe("add", () => {
     it("should add a member for the first time", () => {
       room.add(user);
-      assert.deepStrictEqual(room.status(), { members: [user], game: null });
+      assert.deepStrictEqual(room.status(), {
+        members: [user],
+        game: undefined,
+        isFull: false,
+      });
     });
 
     it("should add a member after the existing members", () => {
@@ -25,17 +29,19 @@ describe("Room", () => {
 
       assert.deepStrictEqual(room.status(), {
         members: [user, otherUser],
-        game: null,
+        game: undefined,
+        isFull: true,
       });
     });
 
     it("should not add duplicate members", () => {
       room.add(user);
       room.add(user);
-      
+
       assert.deepStrictEqual(room.status(), {
         members: [user],
-        game: null,
+        game: undefined,
+        isFull: false,
       });
     });
   });
@@ -72,6 +78,7 @@ describe("Room", () => {
           winner: null,
           isTie: false,
         },
+        isFull: true,
       });
     });
   });
@@ -94,6 +101,7 @@ describe("Room", () => {
           winner: null,
           isTie: false,
         },
+        isFull: true,
       });
     });
   });

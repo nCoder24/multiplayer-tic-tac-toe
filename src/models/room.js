@@ -10,7 +10,6 @@ class Room {
   constructor(size) {
     this.#size = size;
     this.#members = new Set();
-    this.#game = null;
   }
 
   isFull() {
@@ -35,7 +34,11 @@ class Room {
   }
 
   status() {
-    return { members: [...this.#members], game: this.#game?.status() || null };
+    return {
+      members: [...this.#members],
+      game: this.#game?.status(),
+      isFull: this.isFull(),
+    };
   }
 }
 

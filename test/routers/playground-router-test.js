@@ -32,7 +32,11 @@ describe("Playground API", () => {
 
   describe("POST /playground", () => {
     it("should create a new room for game", (_, done) => {
-      request(app).post("/playground").expect(201).expect({ id: "1" }).end(done);
+      request(app)
+        .post("/playground")
+        .expect(201)
+        .expect({ id: "1" })
+        .end(done);
     });
   });
 
@@ -50,10 +54,14 @@ describe("Playground API", () => {
     it("should get the updated status", (_, done) => {
       const expectedBody = {
         members: [username],
-        game: null,
+        isFull: false,
       };
 
-      request(app).get("/playground/1/status").expect(200).expect(expectedBody).end(done);
+      request(app)
+        .get("/playground/1/status")
+        .expect(200)
+        .expect(expectedBody)
+        .end(done);
     });
   });
 
