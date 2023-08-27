@@ -1,10 +1,11 @@
 const request = require("supertest");
 const { describe, it } = require("node:test");
+const { createApp } = require("../../src/routers/app");
+const Playground = require("../../src/models/playground");
 const {
   createPlaygroundRouter,
 } = require("../../src/routers/playground-router");
-const { createApp } = require("../../src/routers/app");
-const Playground = require("../../src/models/playground");
+const { createAuthRouter } = require("../../src/routers/auth-router");
 
 /* eslint-disable max-statements */
 describe("Playground API", () => {
@@ -20,7 +21,8 @@ describe("Playground API", () => {
 
   const context = { playground, idGenerator };
   const gameRouter = createPlaygroundRouter(context);
-  const app = createApp(gameRouter);
+  const authRouter = createAuthRouter();
+  const app = createApp(gameRouter, authRouter);
 
   describe("POST /room", () => {
     it("should create a new room for game", (_, done) => {
