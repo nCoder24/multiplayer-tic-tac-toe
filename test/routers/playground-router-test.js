@@ -24,6 +24,12 @@ describe("Playground API", () => {
   const authRouter = createAuthRouter();
   const app = createApp(authRouter, playgroundRouter);
 
+  describe("GET /room", () => {
+    it("should get the playground home", (_, done) => {
+      request(app).get("/room").expect(200).end(done);
+    });
+  });
+
   describe("POST /room", () => {
     it("should create a new room for game", (_, done) => {
       request(app).post("/room").expect(201).expect({ id: "1" }).end(done);

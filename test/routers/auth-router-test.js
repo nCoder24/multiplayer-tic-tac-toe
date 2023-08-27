@@ -12,8 +12,8 @@ describe("AuthRouter", () => {
   const app = createApp(authRouter, playgroundRouter);
   const username = "user";
 
-  describe("POST /auth/login", () => {
-    it("should set an cookie on the user-agent", (_, done) => {
+  describe("GET /auth/login", () => {
+    it("should get login page", (_, done) => {
       request(app)
         .get("/auth/login")
         .expect(200)
