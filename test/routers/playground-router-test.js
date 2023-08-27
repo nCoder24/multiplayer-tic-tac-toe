@@ -46,14 +46,14 @@ describe("Playground API", () => {
     });
   });
 
-  describe("TRACE /playground/:id", () => {
+  describe("GET /playground/:id", () => {
     it("should get the updated status", (_, done) => {
       const expectedBody = {
         members: [username],
         game: null,
       };
 
-      request(app).trace("/playground/1").expect(200).expect(expectedBody).end(done);
+      request(app).get("/playground/1/status").expect(200).expect(expectedBody).end(done);
     });
   });
 

@@ -48,7 +48,7 @@ const createPlaygroundRouter = (context) => {
   playgroundRouter.get("/", sendPlaygroundHome);
   playgroundRouter.post("/", createRoom);
   playgroundRouter.get("/:id", joinRoom);
-  playgroundRouter.trace("/:id", sendRoomStatus);
+  playgroundRouter.get("/:id/status", sendRoomStatus);
   playgroundRouter.post("/:id/play", startGame);
   playgroundRouter.post("/:id/move", makeMove);
 
