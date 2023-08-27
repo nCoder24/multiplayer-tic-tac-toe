@@ -11,13 +11,8 @@ const play = () => {
 };
 
 const renderPlayerCard = (card, { username, symbol }) => {
-  const userElement = document.createElement("p");
-  userElement.innerText = username;
-
-  const symbolElement = document.createElement("p");
-  symbolElement.innerText = symbol;
-
-  card.append(userElement, symbolElement);
+  card.querySelector(".username").innerText = username;
+  card.querySelector(".symbol").innerText = symbol;
 };
 
 const createPlayer = (member, symbol) => ({
@@ -50,15 +45,22 @@ const renderPlayButton = ({ game, isFull }) => {
   }
 };
 
-const renderRoom = (status) => {
+const render = (status) => {
   renderPlayerCards(status);
   renderPlayButton(status);
+};
+
+const keepUpdating = () => {
+  const update = () => getRoomStatus().then(render);
+  setInterval(update, 2000);
+  update();
 };
 
 const main = () => {
   const playBtn = getPlayButton();
   playBtn.onclick = play;
-  getRoomStatus().then(renderRoom);
+
+  keepUpdating();
 };
 
 window.onload = main;
