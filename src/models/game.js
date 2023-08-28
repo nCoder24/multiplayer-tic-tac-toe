@@ -1,4 +1,3 @@
-const includes = Array.prototype.includes;
 const winningCombinations = [
   [1, 2, 3],
   [4, 5, 6],
@@ -32,7 +31,7 @@ class Game {
       .map(([move]) => move);
 
     this.#hasWon = winningCombinations.some((combination) => {
-      return combination.every(includes.bind(currentPlayerMoves));
+      return combination.every((pos) => currentPlayerMoves.includes(pos));
     });
   }
 

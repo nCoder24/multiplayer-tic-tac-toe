@@ -91,4 +91,37 @@ describe("Game", () => {
       });
     });
   });
+
+  describe("#checkWinner", () => {
+    it("should be won if any winning combination is present in current player's moves", () => {
+      const moveCombinations = [
+        [1, 4, 2, 5, 3],
+        [4, 1, 5, 2, 6],
+        [7, 1, 8, 2, 9],
+        [1, 2, 4, 3, 7],
+        [2, 4, 5, 6, 8],
+        [3, 1, 6, 2, 9],
+        [1, 2, 5, 3, 9],
+        [3, 1, 5, 2, 7],
+        [5, 1, 3, 2, 7],
+      ];
+
+      moveCombinations.forEach((moves) => {
+        player1 = new Player("player1", "X");
+        player2 = new Player("player2", "O");
+        players = new Players(player1, player2);
+        game = new Game(players);
+
+        moves.forEach((pos) => game.makeMove(pos));
+        const { isOver, winner, isTie } = game.status();
+
+        assert.ok(isOver);
+        assert.ok(!isTie);
+        assert.deepStrictEqual(winner, {
+          username: player1.username,
+          symbol: player1.symbol,
+        });
+      });
+    });
+  });
 });
