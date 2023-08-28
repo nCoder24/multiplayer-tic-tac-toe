@@ -2,14 +2,12 @@ const assert = require("node:assert");
 const { describe, it, beforeEach } = require("node:test");
 const Playground = require("../../src/models/playground");
 
-/* eslint-disable max-statements */
 describe("Playground", () => {
   let playground;
   const id = "room";
-  const user = "user1";
-  const otherUser = "user2";
+  const user = { username: "user1", symbol: "X" };
+  const otherUser = { username: "user2", symbol: "O" };
   const firstSymbol = "X";
-  const secondSymbol = "O";
 
   beforeEach(() => {
     playground = new Playground();
@@ -50,7 +48,7 @@ describe("Playground", () => {
       assert.deepStrictEqual(playground.roomStatus(id), {
         members: [user, otherUser],
         game: {
-          currentPlayer: { username: user, symbol: firstSymbol },
+          currentPlayer: user,
           moves: [],
           isOver: false,
           winner: null,
@@ -75,7 +73,7 @@ describe("Playground", () => {
       assert.deepStrictEqual(playground.roomStatus(id), {
         members: [user, otherUser],
         game: {
-          currentPlayer: { username: otherUser, symbol: secondSymbol },
+          currentPlayer: otherUser,
           moves: [[position, firstSymbol]],
           isOver: false,
           winner: null,

@@ -36,5 +36,11 @@ module.exports = {
         "no-undef": "off",
       },
     },
+    {
+      files: ["test/*/*"],
+      rules: {
+        "max-statements": "off",
+      },
+    },
   ],
 };

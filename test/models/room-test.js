@@ -3,10 +3,10 @@ const { describe, it, beforeEach } = require("node:test");
 const Room = require("../../src/models/room");
 
 describe("Room", () => {
-  const user = "user1";
-  const otherUser = "user2";
+  const user = { username: "user1", symbol: "X" };
+  const otherUser = { username: "user2", symbol: "O" };
+  const userClone = { username: "user1", symbol: "X" };
   const firstSymbol = "X";
-  const secondSymbol = "O";
   let room;
 
   beforeEach(() => {
@@ -36,7 +36,7 @@ describe("Room", () => {
 
     it("should not add duplicate members", () => {
       room.add(user);
-      room.add(user);
+      room.add(userClone);
 
       assert.deepStrictEqual(room.status(), {
         members: [user],
@@ -72,13 +72,24 @@ describe("Room", () => {
       assert.deepStrictEqual(room.status(), {
         members: [user, otherUser],
         game: {
-          currentPlayer: { username: user, symbol: firstSymbol },
+          currentPlayer: user,
           moves: [],
           isOver: false,
           winner: null,
           isTie: false,
         },
         isFull: true,
+      });
+    });
+
+    it("should not start a game if the room is not full", () => {
+      room.add(user);
+      room.startGame();
+
+      assert.deepStrictEqual(room.status(), {
+        members: [user],
+        game: undefined,
+        isFull: false,
       });
     });
   });
@@ -95,7 +106,7 @@ describe("Room", () => {
       assert.deepStrictEqual(room.status(), {
         members: [user, otherUser],
         game: {
-          currentPlayer: { username: otherUser, symbol: secondSymbol },
+          currentPlayer: otherUser,
           moves: [[position, firstSymbol]],
           isOver: false,
           winner: null,

@@ -18,31 +18,23 @@ const makeMove = (position) => {
   });
 };
 
-const renderPlayerCard = (card, { username, symbol }, game) => {
-  if (username === game?.currentPlayer?.username) {
+const renderPlayerCard = (card, member, game) => {
+  if (!member) return;
+  if (member.username === game?.currentPlayer.username) {
     card.classList.add("current");
   } else {
     card.classList.remove("current");
   }
 
-  card.querySelector(".username").innerText = username;
-  card.querySelector(".symbol").innerText = symbol;
+  card.querySelector(".username").innerText = member.username;
+  card.querySelector(".symbol").innerText = member.symbol;
 };
-
-const createPlayer = (member, symbol) => ({
-  username: member || "",
-  symbol: member ? symbol : "",
-});
 
 const renderPlayerCards = ({ members, game }) => {
   const playerList = getPlayerList();
 
-  // TODO: handle it in backend
-  const player1 = createPlayer(members[0], "X");
-  const player2 = createPlayer(members[1], "O");
-
-  renderPlayerCard(playerList.children[0], player1, game);
-  renderPlayerCard(playerList.children[1], player2, game);
+  renderPlayerCard(playerList.children[0], members[0], game);
+  renderPlayerCard(playerList.children[1], members[1], game);
 };
 
 const renderPlayButton = ({ game, isFull }) => {

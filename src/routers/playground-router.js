@@ -1,5 +1,14 @@
 const express = require("express");
 
+const symbols = {
+  i: 0,
+  symbols: ["X", "O"],
+
+  next() {
+    return this.symbols[this.i++ % this.symbols.length];
+  },
+};
+
 const createRoom = (req, res) => {
   const id = req.context.idGenerator.new();
   req.context.playground.createRoom(id);
@@ -10,7 +19,7 @@ const joinRoom = (req, res) => {
   const id = req.params.id;
   const username = req.cookies.username;
 
-  req.context.playground.joinRoom(id, username);
+  req.context.playground.joinRoom(id, { username, symbol: symbols.next() });
   res.sendFile(process.env.PWD + "/pages/room.html");
 };
 

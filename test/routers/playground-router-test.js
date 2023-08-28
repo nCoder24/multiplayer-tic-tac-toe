@@ -53,7 +53,7 @@ describe("Playground API", () => {
   describe("GET /playground/:id", () => {
     it("should get the updated status", (_, done) => {
       const expectedBody = {
-        members: [username],
+        members: [{username, symbol: "X"}],
         isFull: false,
       };
 

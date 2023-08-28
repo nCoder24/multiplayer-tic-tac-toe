@@ -9,24 +9,30 @@ class Room {
 
   constructor(size) {
     this.#size = size;
-    this.#members = new Set();
+    this.#members = [];
   }
 
   isFull() {
-    return this.#members.size >= this.#size;
+    return this.#members.length >= this.#size;
+  }
+
+  has(username) {
+    return this.#members.map((user) => user.username).includes(username);
   }
 
   add(user) {
-    this.#members.add(user);
+    if (this.has(user.username)) return; // TODO: handle with middleware
+    this.#members.push(user);
   }
 
   startGame() {
-    const members = [...this.#members];
-    const player1 = new Player(members[0], "X");
-    const player2 = new Player(members[1], "O");
-    const players = new Players(player1, player2);
+    if (!this.isFull()) return; // TODO: handle with middleware
 
-    this.#game = new Game(players);
+    const players = this.#members.map(
+      ({ username, symbol }) => new Player(username, symbol)
+    );
+
+    this.#game = new Game(new Players(...players));
   }
 
   makeMove(position) {
