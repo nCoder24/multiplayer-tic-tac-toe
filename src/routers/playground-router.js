@@ -1,4 +1,5 @@
 const express = require("express");
+const { checkIfCurrentPlayer } = require("../middleware/playground-middleware");
 
 const symbols = {
   i: 0,
@@ -64,7 +65,7 @@ const createPlaygroundRouter = (context) => {
   playgroundRouter.get("/:id", joinRoom);
   playgroundRouter.get("/:id/status", sendRoomStatus);
   playgroundRouter.post("/:id/play", startGame);
-  playgroundRouter.post("/:id/move", makeMove);
+  playgroundRouter.post("/:id/move", checkIfCurrentPlayer, makeMove);
 
   return playgroundRouter;
 };

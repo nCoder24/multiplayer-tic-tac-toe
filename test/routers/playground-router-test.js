@@ -92,12 +92,23 @@ describe("Playground API", () => {
   });
 
   describe("POST /playground/:id/move", () => {
-    it("should start the game with the current members", (_, done) => {
+    it("should make move for the current player", (_, done) => {
       const position = 1;
       request(app)
         .post(`/playground/${id}/move`)
+        .set("Cookie", `username=${username}`)
         .send({ position })
         .expect(204)
+        .end(done);
+    });
+
+    it("should not make move for other than current player", (_, done) => {
+      const position = 2;
+      request(app)
+        .post(`/playground/${id}/move`)
+        .set("Cookie", `username=${username}`)
+        .send({ position })
+        .expect(403)
         .end(done);
     });
   });
