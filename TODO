@@ -3,6 +3,13 @@
 <!-- - add player getters -->
 <!-- - rename getters with logic -->
 
+- add more in formation
+  - member (symbol, score, username) 
+  - status (isInGame)
+
+- start indexing boxes from 0
+- make the table grid for easy accessing
+- optimizing rendering
 - add model test in api testing
 - add feature of room admin
 - query only latest move
