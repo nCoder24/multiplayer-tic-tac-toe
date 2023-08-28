@@ -16,6 +16,10 @@
   border: 2px solid gray;
 }
 
+.player.current {
+  background-color: rgb(200, 200, 200);
+}
+
 #board {
   aspect-ratio: 1;
   padding: 2em;

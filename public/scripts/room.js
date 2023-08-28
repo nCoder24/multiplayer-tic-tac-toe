@@ -18,7 +18,13 @@ const makeMove = (position) => {
   });
 };
 
-const renderPlayerCard = (card, { username, symbol }) => {
+const renderPlayerCard = (card, { username, symbol }, { currentPlayer }) => {
+  if (username === currentPlayer?.username) {
+    card.classList.add("current");
+  } else {
+    card.classList.remove("current");
+  }
+
   card.querySelector(".username").innerText = username;
   card.querySelector(".symbol").innerText = symbol;
 };
@@ -28,15 +34,15 @@ const createPlayer = (member, symbol) => ({
   symbol: member ? symbol : "",
 });
 
-const renderPlayerCards = ({ members }) => {
+const renderPlayerCards = ({ members, game }) => {
   const playerList = getPlayerList();
 
   // TODO: handle it in backend
   const player1 = createPlayer(members[0], "X");
   const player2 = createPlayer(members[1], "O");
 
-  renderPlayerCard(playerList.children[0], player1);
-  renderPlayerCard(playerList.children[1], player2);
+  renderPlayerCard(playerList.children[0], player1, game);
+  renderPlayerCard(playerList.children[1], player2, game);
 };
 
 const renderPlayButton = ({ game, isFull }) => {
@@ -87,7 +93,6 @@ const attachListeners = () => {
   };
 
   board.querySelectorAll(".cell").forEach((cell, pos) => {
-    
     cell.onclick = () => {
       if (cell.classList.contains("marked")) return;
       makeMove(pos + 1);
