@@ -17,7 +17,6 @@
 }
 
 #board {
-  width: 22em;
   aspect-ratio: 1;
   padding: 2em;
   place-self: center;
@@ -32,6 +31,14 @@
 }
 
 .cell {
+  height: 5em;
+  width: 5em;
   padding: 0.5em;
+  font-size: 30px;
   border: 2.5px solid gray;
+}
+
+.cell:hover {
+  cursor: pointer;
+  background-color: #f9ffff;
 }

@@ -10,9 +10,7 @@ const startGame = () => {
   return fetch(resolveURL("play"), { method: "POST" });
 };
 
-const makeMove = ({ target }) => {
-  const position = target.id.split("-")[1];
-
+const makeMove = (position) => {
   return fetch(resolveURL("move"), {
     method: "POST",
     body: JSON.stringify({ position }),
@@ -42,44 +40,55 @@ const renderPlayerCards = ({ members }) => {
 };
 
 const renderPlayButton = ({ game, isFull }) => {
-  const isReadyToPlay = () => isFull && (!game || game.isOver);
   const playBtn = getPlayButton();
 
-  if (!isFull) {
-    playBtn.disabled = true;
-    return;
-  }
-
-  if (!isReadyToPlay()) {
-    playBtn.hidden = true;
-  }
+  playBtn.disabled = !isFull;
+  playBtn.hidden = !(isFull && (!game || game.isOver));
 };
 
 const renderBoard = ({ game }) => {
-  game.moves.forEach(([position, symbol]) => {
-    board.querySelector(`#cell-${position}`).innerText = symbol;
+  const symbols = new Map(game.moves);
+  const board = getBoard();
+
+  board.querySelectorAll(".cell").forEach((cell, pos) => {
+    cell.innerText = symbols.get(pos + 1) || " ";
   });
 };
 
 const renderAll = (status) => {
   renderPlayerCards(status);
   renderPlayButton(status);
-  if(status.game) renderBoard(status);
+  if (status.game) renderBoard(status);
+};
+
+const update = () => {
+  getRoomStatus().then(renderAll);
 };
 
 const keepUpdating = () => {
-  const update = () => getRoomStatus().then(renderAll);
   setInterval(update, 2000);
   update();
 };
 
-const main = () => {
+const attachListeners = () => {
   const playBtn = getPlayButton();
   const board = getBoard();
 
-  playBtn.onclick = startGame;
-  board.onclick = makeMove;
+  playBtn.onclick = () => {
+    startGame();
+    update();
+  };
 
+  board.querySelectorAll(".cell").forEach((cell, pos) => {
+    cell.onclick = () => {
+      makeMove(pos + 1);
+      update();
+    };
+  });
+};
+
+const main = () => {
+  attachListeners();
   keepUpdating();
 };
 
