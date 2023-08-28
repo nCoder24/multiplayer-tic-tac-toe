@@ -21,9 +21,9 @@ const makeMove = (position) => {
 
 const renderPlayerCard = (card, member, game) => {
   if (!member) return;
-  
+
   card.classList.remove("current");
-  
+
   if (member.username === game?.currentPlayer.username) {
     card.classList.add("current");
   }
@@ -62,7 +62,13 @@ const displayGameOverDialog = ({ game }) => {
   gameOverDialog.close();
 
   if (game.isOver) {
+    const winner = game.winner;
+    const message = winner
+      ? `${winner.username} (${winner.symbol}) Won!`
+      : "Tie!";
+
     gameOverDialog.showModal();
+    gameOverDialog.querySelector("#message").innerText = message;
   }
 };
 
