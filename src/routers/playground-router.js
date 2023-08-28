@@ -20,6 +20,11 @@ const joinRoom = (req, res) => {
   const username = req.cookies.username;
 
   req.context.playground.joinRoom(id, { username, symbol: symbols.next() });
+
+  if (req.context.playground.roomStatus(id).isFull) {
+    req.context.playground.startGame(id);
+  }
+
   res.sendFile(process.env.PWD + "/pages/room.html");
 };
 

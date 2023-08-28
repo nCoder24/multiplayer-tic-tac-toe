@@ -1,4 +1,6 @@
 const request = require("supertest");
+const assert = require("node:assert");
+
 const { describe, it } = require("node:test");
 const { createApp } = require("../../src/routers/app");
 const Playground = require("../../src/models/playground");
@@ -23,6 +25,7 @@ describe("Playground API", () => {
   const playgroundRouter = createPlaygroundRouter(context);
   const authRouter = createAuthRouter();
   const app = createApp(authRouter, playgroundRouter);
+  const id = "1";
 
   describe("GET /playground", () => {
     it("should get the playground home", (_, done) => {
@@ -32,33 +35,50 @@ describe("Playground API", () => {
 
   describe("POST /playground", () => {
     it("should create a new room for game", (_, done) => {
-      request(app)
-        .post("/playground")
-        .expect(201)
-        .expect({ id: "1" })
-        .end(done);
+      request(app).post("/playground").expect(201).expect({ id }).end(done);
     });
   });
 
   describe("GET /playground/:id", () => {
     it("should join a room", (_, done) => {
       request(app)
-        .get("/playground/1")
+        .get(`/playground/${id}`)
         .set("Cookie", `username=${username}`)
         .expect(200)
         .end(done);
     });
+
+    it("should initialize game if has enough user", (_, done) => {
+      request(app)
+        .get(`/playground/${id}`)
+        .set("Cookie", `username=${otherUsername}`)
+        .expect(200)
+        .end((err) => {
+          assert.ok(playground.roomStatus(id).game);
+          done(err);
+        });
+    });
   });
 
-  describe("GET /playground/:id", () => {
+  describe("GET /playground/:id/status", () => {
     it("should get the updated status", (_, done) => {
       const expectedBody = {
-        members: [{username, symbol: "X"}],
-        isFull: false,
+        members: [
+          { username, symbol: "X" },
+          { username: otherUsername, symbol: "O" },
+        ],
+        game: {
+          currentPlayer: { username: "user1", symbol: "X" },
+          moves: [],
+          isOver: false,
+          winner: null,
+          isTie: false,
+        },
+        isFull: true,
       };
 
       request(app)
-        .get("/playground/1/status")
+        .get(`/playground/${id}/status`)
         .expect(200)
         .expect(expectedBody)
         .end(done);
@@ -67,12 +87,7 @@ describe("Playground API", () => {
 
   describe("POST /playground/:id/play", () => {
     it("should start the game with the current members", (_, done) => {
-      request(app)
-        .get("/playground/1")
-        .set("Cookie", `username=${otherUsername}`)
-        .end(() => {
-          request(app).post("/playground/1/play").expect(204).end(done);
-        });
+      request(app).post(`/playground/${id}/play`).expect(204).end(done);
     });
   });
 
@@ -80,7 +95,7 @@ describe("Playground API", () => {
     it("should start the game with the current members", (_, done) => {
       const position = 1;
       request(app)
-        .post("/playground/1/move")
+        .post(`/playground/${id}/move`)
         .send({ position })
         .expect(204)
         .end(done);

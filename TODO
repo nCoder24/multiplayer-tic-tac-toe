@@ -9,6 +9,7 @@
   - status (isInGame)
 
 - start game on enough member
+- fix winning logic
 
 - start indexing boxes from 0
 - make the table grid for easy accessing

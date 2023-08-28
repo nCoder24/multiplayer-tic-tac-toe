@@ -1,6 +1,7 @@
 const getPlayerList = () => document.querySelector("#players");
 const getPlayButton = () => document.querySelector("#play-btn");
 const getBoard = () => document.querySelector("#board");
+const getGameOverDialog = () => document.querySelector("#game-over-dialog");
 
 const getRoomStatus = () => {
   return fetch(resolveURL("status")).then((res) => res.json());
@@ -20,6 +21,7 @@ const makeMove = (position) => {
 
 const renderPlayerCard = (card, member, game) => {
   if (!member) return;
+  // TODO: remove if else
   if (member.username === game?.currentPlayer.username) {
     card.classList.add("current");
   } else {
@@ -37,19 +39,15 @@ const renderPlayerCards = ({ members, game }) => {
   renderPlayerCard(playerList.children[1], members[1], game);
 };
 
-const renderPlayButton = ({ game, isFull }) => {
-  const playBtn = getPlayButton();
-
-  playBtn.disabled = !isFull;
-  playBtn.hidden = !(isFull && (!game || game.isOver));
-};
-
 const renderBoard = ({ game }) => {
+  if (!game) return;
+
   const symbols = new Map(game.moves);
   const board = getBoard();
 
   board.querySelectorAll(".cell").forEach((cell, pos) => {
     const symbol = symbols.get(pos + 1);
+    // TODO: remove if else
     if (symbol) {
       cell.innerText = symbol;
       cell.classList.add("marked");
@@ -60,10 +58,19 @@ const renderBoard = ({ game }) => {
   });
 };
 
+const displayGameOverDialog = ({ game }) => {
+  const gameOverDialog = getGameOverDialog();
+  gameOverDialog.close();
+
+  if (game.isOver) {
+    gameOverDialog.showModal();
+  }
+};
+
 const renderAll = (status) => {
   renderPlayerCards(status);
-  renderPlayButton(status);
-  if (status.game) renderBoard(status);
+  displayGameOverDialog(status);
+  renderBoard(status);
 };
 
 const update = () => {
