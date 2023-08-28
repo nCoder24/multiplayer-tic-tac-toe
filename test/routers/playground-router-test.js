@@ -48,7 +48,7 @@ describe("Playground API", () => {
         .end(done);
     });
 
-    it("should initialize game if has enough user", (_, done) => {
+    it("should start game if not started but has enough members", (_, done) => {
       request(app)
         .get(`/playground/${id}`)
         .set("Cookie", `username=${otherUsername}`)

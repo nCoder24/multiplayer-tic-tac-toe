@@ -18,12 +18,12 @@ const createRoom = (req, res) => {
 const joinRoom = (req, res) => {
   const id = req.params.id;
   const username = req.cookies.username;
+  const playground = req.context.playground;
 
-  req.context.playground.joinRoom(id, { username, symbol: symbols.next() });
+  playground.joinRoom(id, { username, symbol: symbols.next() });
 
-  if (req.context.playground.roomStatus(id).isFull) {
-    req.context.playground.startGame(id);
-  }
+  const { isFull, game } = playground.roomStatus(id);
+  if (isFull && !game) playground.startGame(id);
 
   res.sendFile(process.env.PWD + "/pages/room.html");
 };

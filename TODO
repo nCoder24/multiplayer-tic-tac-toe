@@ -10,6 +10,7 @@
 
 - start game on enough member
 - fix winning logic
+- stop re-initializing if already in a game on join
 
 - start indexing boxes from 0
 - make the table grid for easy accessing
