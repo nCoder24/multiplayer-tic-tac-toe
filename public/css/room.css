@@ -54,3 +54,9 @@
   transform: translate(-50%, -50%);
   padding: 2em;
 }
+
+#game-over-dialog[open] {
+  display: grid;
+  place-content: center;
+  gap: 0.5em;
+}

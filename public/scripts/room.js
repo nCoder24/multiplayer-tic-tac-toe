@@ -21,11 +21,11 @@ const makeMove = (position) => {
 
 const renderPlayerCard = (card, member, game) => {
   if (!member) return;
-  // TODO: remove if else
+  
+  card.classList.remove("current");
+  
   if (member.username === game?.currentPlayer.username) {
     card.classList.add("current");
-  } else {
-    card.classList.remove("current");
   }
 
   card.querySelector(".username").innerText = member.username;
@@ -47,13 +47,12 @@ const renderBoard = ({ game }) => {
 
   board.querySelectorAll(".cell").forEach((cell, pos) => {
     const symbol = symbols.get(pos + 1);
-    // TODO: remove if else
+    cell.innerText = "";
+    cell.classList.remove("marked");
+
     if (symbol) {
       cell.innerText = symbol;
       cell.classList.add("marked");
-    } else {
-      cell.innerText = "";
-      cell.classList.remove("marked");
     }
   });
 };
@@ -67,14 +66,12 @@ const displayGameOverDialog = ({ game }) => {
   }
 };
 
-const renderAll = (status) => {
-  renderPlayerCards(status);
-  displayGameOverDialog(status);
-  renderBoard(status);
-};
-
 const update = () => {
-  getRoomStatus().then(renderAll);
+  getRoomStatus().then((status) => {
+    renderPlayerCards(status);
+    displayGameOverDialog(status);
+    renderBoard(status);
+  });
 };
 
 const keepUpdating = () => {
