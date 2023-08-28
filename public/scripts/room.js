@@ -18,8 +18,8 @@ const makeMove = (position) => {
   });
 };
 
-const renderPlayerCard = (card, { username, symbol }, { currentPlayer }) => {
-  if (username === currentPlayer?.username) {
+const renderPlayerCard = (card, { username, symbol }, game) => {
+  if (username === game?.currentPlayer?.username) {
     card.classList.add("current");
   } else {
     card.classList.remove("current");
