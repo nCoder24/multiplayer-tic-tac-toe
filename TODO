@@ -3,14 +3,22 @@
 <!-- - add player getters -->
 <!-- - rename getters with logic -->
 
-- add more in formation
+- fix winning logic
+- show winner or tie
+- prevent user to enter move if not current player
+- show error for non existing room
+- convert playground routes as root routes
+- prevent accessing playground if not logged in
+- do something to identify self on frontend
+- count score and ties
+- keep only username in backend render symbol in frontend
 
+- add more information
   - member (symbol, score, username)
   - status (isInGame)
 
-- start game on enough member
-- fix winning logic
-- stop re-initializing if already in a game on join
+<!-- - start game on enough member -->
+<!-- - stop re-initializing if already in a game on join -->
 
 - start indexing boxes from 0
 - make the table grid for easy accessing
