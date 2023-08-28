@@ -1,5 +1,6 @@
 const express = require("express");
 const { checkIfCurrentPlayer } = require("../middleware/playground-middleware");
+const { checkAuthenticated } = require("../middleware/auth-middleware");
 
 const symbols = {
   i: 0,
@@ -55,6 +56,7 @@ const sendPlaygroundHome = (_req, res) => {
 const createPlaygroundRouter = (context) => {
   const playgroundRouter = express.Router();
 
+  playgroundRouter.use(checkAuthenticated);
   playgroundRouter.use((req, _res, next) => {
     req.context = context;
     next();

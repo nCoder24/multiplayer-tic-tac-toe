@@ -1,4 +1,5 @@
 const express = require("express");
+const { checkNotAuthenticated } = require("../middleware/auth-middleware");
 
 const loginUser = (req, res) => {
   const username = req.body.username;
@@ -13,8 +14,8 @@ const sendLoginPage = (req, res) => {
 const createAuthRouter = () => {
   const authRouter = new express.Router();
 
-  authRouter.get("/login", sendLoginPage);
-  authRouter.post("/login", loginUser);
+  authRouter.get("/login", checkNotAuthenticated, sendLoginPage);
+  authRouter.post("/login", checkNotAuthenticated, loginUser);
 
   return authRouter;
 };

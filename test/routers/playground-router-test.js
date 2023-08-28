@@ -9,7 +9,6 @@ const {
 } = require("../../src/routers/playground-router");
 const { createAuthRouter } = require("../../src/routers/auth-router");
 
-/* eslint-disable max-statements */
 describe("Playground API", () => {
   const username = "user1";
   const otherUsername = "user2";
@@ -29,13 +28,30 @@ describe("Playground API", () => {
 
   describe("GET /playground", () => {
     it("should get the playground home", (_, done) => {
-      request(app).get("/playground").expect(200).end(done);
+      request(app)
+        .get("/playground")
+        .set("Cookie", `username=${username}`)
+        .expect(200)
+        .end(done);
+    });
+
+    it("should get access to playground pages if not authenticated", (_, done) => {
+      request(app)
+        .get("/playground")
+        .expect(302)
+        .expect("location", "/auth/login")
+        .end(done);
     });
   });
 
   describe("POST /playground", () => {
     it("should create a new room for game", (_, done) => {
-      request(app).post("/playground").expect(201).expect({ id }).end(done);
+      request(app)
+        .post("/playground")
+        .set("Cookie", `username=${username}`)
+        .expect(201)
+        .expect({ id })
+        .end(done);
     });
   });
 
@@ -79,6 +95,7 @@ describe("Playground API", () => {
 
       request(app)
         .get(`/playground/${id}/status`)
+        .set("Cookie", `username=${username}`)
         .expect(200)
         .expect(expectedBody)
         .end(done);
@@ -87,7 +104,11 @@ describe("Playground API", () => {
 
   describe("POST /playground/:id/play", () => {
     it("should start the game with the current members", (_, done) => {
-      request(app).post(`/playground/${id}/play`).expect(204).end(done);
+      request(app)
+        .post(`/playground/${id}/play`)
+        .set("Cookie", `username=${username}`)
+        .expect(204)
+        .end(done);
     });
   });
 

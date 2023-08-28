@@ -7,7 +7,7 @@
 
 - prevent user to enter move if not current player
 - show error for non existing room
-- alter turn
+- alter starting turn
 - convert playground routes as root routes
 - prevent accessing playground if not logged in
 - do something to identify self on frontend

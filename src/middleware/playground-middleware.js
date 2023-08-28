@@ -5,7 +5,7 @@ const checkIfCurrentPlayer = (req, res, next) => {
   const currentPlayerUsername =
     playground.roomStatus(id).game.currentPlayer.username;
 
-  if (!username || currentPlayerUsername !== username) {
+  if (currentPlayerUsername !== username) {
     res.sendStatus(403);
     return;
   }
