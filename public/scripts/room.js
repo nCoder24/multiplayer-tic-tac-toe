@@ -51,7 +51,14 @@ const renderBoard = ({ game }) => {
   const board = getBoard();
 
   board.querySelectorAll(".cell").forEach((cell, pos) => {
-    cell.innerText = symbols.get(pos + 1) || " ";
+    const symbol = symbols.get(pos + 1);
+    if (symbol) {
+      cell.innerText = symbol;
+      cell.classList.add("marked");
+    } else {
+      cell.innerText = "";
+      cell.classList.remove("marked");
+    }
   });
 };
 
@@ -80,7 +87,9 @@ const attachListeners = () => {
   };
 
   board.querySelectorAll(".cell").forEach((cell, pos) => {
+    
     cell.onclick = () => {
+      if (cell.classList.contains("marked")) return;
       makeMove(pos + 1);
       update();
     };

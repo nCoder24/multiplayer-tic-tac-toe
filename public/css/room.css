@@ -38,7 +38,7 @@
   border: 2.5px solid gray;
 }
 
-.cell:hover {
+.cell:not(.marked):hover {
   cursor: pointer;
   background-color: #f9ffff;
 }
