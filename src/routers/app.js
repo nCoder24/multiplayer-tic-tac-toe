@@ -1,9 +1,11 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const { logger } = require("../middleware/logger");
 
 const createApp = (authRouter, playgroundRouter) => {
   const app = express();
 
+  app.use(logger);
   app.use(express.json());
   app.use(cookieParser());
 

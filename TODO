@@ -4,8 +4,11 @@
 <!-- - rename getters with logic -->
 
 - add more in formation
-  - member (symbol, score, username) 
+
+  - member (symbol, score, username)
   - status (isInGame)
+
+- start game on enough member
 
 - start indexing boxes from 0
 - make the table grid for easy accessing
