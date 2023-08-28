@@ -64,6 +64,14 @@ describe("Playground API", () => {
         .end(done);
     });
 
+    it("should send error for non existing room req", (_, done) => {
+      request(app)
+        .get(`/playground/${5}`)
+        .set("Cookie", `username=${username}`)
+        .expect(404)
+        .end(done);
+    });
+
     it("should start game if not started but has enough members", (_, done) => {
       request(app)
         .get(`/playground/${id}`)
@@ -98,6 +106,14 @@ describe("Playground API", () => {
         .set("Cookie", `username=${username}`)
         .expect(200)
         .expect(expectedBody)
+        .end(done);
+    });
+
+    it("should not send info to other than members", (_, done) => {
+      request(app)
+        .get(`/playground/${id}/status`)
+        .set("Cookie", `username=something`)
+        .expect(403)
         .end(done);
     });
   });

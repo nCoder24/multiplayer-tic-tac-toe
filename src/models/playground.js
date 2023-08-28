@@ -30,6 +30,10 @@ class Playground {
   roomStatus(id) {
     return this.#room(id).status();
   }
+
+  has(id) {
+    return this.#rooms.has(id);
+  }
 }
 
 module.exports = Playground;

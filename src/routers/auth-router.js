@@ -14,8 +14,9 @@ const sendLoginPage = (req, res) => {
 const createAuthRouter = () => {
   const authRouter = new express.Router();
 
-  authRouter.get("/login", checkNotAuthenticated, sendLoginPage);
-  authRouter.post("/login", checkNotAuthenticated, loginUser);
+  authRouter.use(checkNotAuthenticated);
+  authRouter.get("/login", sendLoginPage);
+  authRouter.post("/login",  loginUser);
 
   return authRouter;
 };

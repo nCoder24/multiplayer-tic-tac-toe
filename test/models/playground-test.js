@@ -83,4 +83,15 @@ describe("Playground", () => {
       });
     });
   });
+
+  describe("has", () => {
+    it("should be true if room exists", () => {
+      playground.createRoom(id);
+      assert.ok(playground.has(id));
+    });
+
+    it("should be false if room does not exists", () => {
+      assert.ok(!playground.has(id));
+    });
+  });
 });

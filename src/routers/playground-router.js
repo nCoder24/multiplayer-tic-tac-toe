@@ -1,5 +1,9 @@
 const express = require("express");
-const { checkIfCurrentPlayer } = require("../middleware/playground-middleware");
+const {
+  checkCurrentPlayer,
+  checkRoomExists,
+  checkRoomMember,
+} = require("../middleware/playground-middleware");
 const { checkAuthenticated } = require("../middleware/auth-middleware");
 
 const symbols = {
@@ -53,23 +57,26 @@ const sendPlaygroundHome = (_req, res) => {
   res.sendFile(process.env.PWD + "/pages/playground.html");
 };
 
-const createPlaygroundRouter = (context) => {
-  const playgroundRouter = express.Router();
 
-  playgroundRouter.use(checkAuthenticated);
-  playgroundRouter.use((req, _res, next) => {
+const createPlaygroundRouter = (context) => {
+  const router = express.Router();
+
+  router.use(checkAuthenticated);
+  router.use((req, _res, next) => {
     req.context = context;
     next();
   });
 
-  playgroundRouter.get("/", sendPlaygroundHome);
-  playgroundRouter.post("/", createRoom);
-  playgroundRouter.get("/:id", joinRoom);
-  playgroundRouter.get("/:id/status", sendRoomStatus);
-  playgroundRouter.post("/:id/play", startGame);
-  playgroundRouter.post("/:id/move", checkIfCurrentPlayer, makeMove);
+  router.get("/", sendPlaygroundHome);
+  router.post("/", createRoom);
 
-  return playgroundRouter;
+  router.use("/:id", checkRoomExists);
+  router.get("/:id", joinRoom);
+  router.get("/:id/status", checkRoomMember, sendRoomStatus);
+  router.post("/:id/play", checkRoomMember, startGame);
+  router.post("/:id/move", checkRoomMember, checkCurrentPlayer, makeMove);
+
+  return router;
 };
 
 module.exports = { createPlaygroundRouter };

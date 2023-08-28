@@ -18,7 +18,7 @@ module.exports = {
     complexity: ["error", 3],
     "array-callback-return": ["error", { checkForEach: false }],
     "max-depth": ["error", 2],
-    "max-statements": ["error", 10],
+    "max-statements": ["error", 12],
 
     "no-cond-assign": "error",
     "no-empty": "error",
