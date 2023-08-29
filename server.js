@@ -21,6 +21,7 @@ const main = () => {
 
   app.listen(port, () => {
     console.log("listening on:", port);
+    console.log("local:", `http://localhost:8080`);
   });
 };
 
