@@ -35,6 +35,15 @@ describe("Playground API", () => {
         .end(done);
     });
 
+    it("should be redirected to the playground home for root url", (_, done) => {
+      request(app)
+        .get("/")
+        .set("Cookie", `username=${username}`)
+        .expect(302)
+        .expect("location", "/playground")
+        .end(done);
+    });
+
     it("should get access to playground pages if not authenticated", (_, done) => {
       request(app)
         .get("/playground")

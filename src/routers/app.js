@@ -9,6 +9,7 @@ const createApp = (authRouter, playgroundRouter) => {
   app.use(express.json());
   app.use(cookieParser());
 
+  app.get("/", (_, res) => res.redirect("/playground"));
   app.use("/auth", authRouter);
   app.use("/playground", playgroundRouter);
 
