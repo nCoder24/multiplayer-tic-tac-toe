@@ -6,11 +6,11 @@
 <!-- - show winner or tie -->
 <!-- - prevent user to enter move if not current player -->
 <!-- - prevent accessing playground if not logged in -->
+<!-- - show error for non existing room -->
+<!-- - convert playground routes as root routes -->
+<!-- - do something to identify self on frontend -->
 
-- show error for non existing room
 - alter starting turn
-- convert playground routes as root routes
-- do something to identify self on frontend
 - count score and ties
 - keep only username in backend render symbol in frontend
 

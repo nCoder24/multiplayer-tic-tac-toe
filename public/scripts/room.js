@@ -3,8 +3,11 @@ const getPlayButton = () => document.querySelector("#play-btn");
 const getBoard = () => document.querySelector("#board");
 const getGameOverDialog = () => document.querySelector("#game-over-dialog");
 
+/* eslint-disable complexity */
 let profile;
-fetch("/auth/profile").then((userDetails) => (profile = userDetails));
+fetch("/auth/profile")
+  .then((res) => res.json())
+  .then((userDetails) => (profile = userDetails));
 
 const getRoomStatus = () => {
   return fetch(resolveURL("status")).then((res) => res.json());
@@ -31,7 +34,12 @@ const renderPlayerCard = (card, member, game) => {
     card.classList.add("current");
   }
 
-  card.querySelector(".username").innerText = member.username;
+  let displayname = member.username;
+  if (member.username === profile.username) {
+    displayname += " (you)";
+  }
+
+  card.querySelector(".username").innerText = displayname;
   card.querySelector(".symbol").innerText = member.symbol;
 };
 
@@ -61,14 +69,20 @@ const renderBoard = ({ game }) => {
 };
 
 const displayGameOverDialog = ({ game }) => {
+  if (!game) return;
+
   const gameOverDialog = getGameOverDialog();
   gameOverDialog.close();
 
   if (game.isOver) {
     const winner = game.winner;
-    const message = winner
-      ? `${winner.username} (${winner.symbol}) Won!`
-      : "Tie!";
+
+    let displayname = winner.username;
+    if (winner.username === profile.username) {
+      displayname += " (you)";
+    }
+
+    const message = winner ? `${displayname} [${winner.symbol}] Won!` : "Tie!";
 
     gameOverDialog.showModal();
     gameOverDialog.querySelector("#message").innerText = message;
