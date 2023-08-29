@@ -16,6 +16,11 @@ input {
   padding: 0.3em;
 }
 
+#header-bar h1 a {
+  text-decoration: none;
+  color: inherit;
+}
+
 #header-bar,
 #page {
   text-align: center;
