@@ -46,4 +46,27 @@ describe("AuthRouter", () => {
         .end(done);
     });
   });
+
+  describe("GET /auth/profile", () => {
+    it("should get the user details", (_, done) => {
+      request(app)
+        .get("/auth/profile")
+        .set("Cookie", `username=${username}`)
+        .expect(200)
+        .expect({ username })
+        .end(done);
+    });
+  });
+
+  describe("GET /auth/logout", () => {
+    it("should log the user out", (_, done) => {
+      request(app)
+        .get("/auth/logout")
+        .set("Cookie", `username=${username}`)
+        .expect(302)
+        .expect("location", "/auth/login")
+        .expect("set-cookie", /username=;/)
+        .end(done);
+    });
+  });
 });

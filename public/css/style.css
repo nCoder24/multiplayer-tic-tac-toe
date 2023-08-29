@@ -36,3 +36,16 @@ input {
   text-align: center;
   margin: 2em;
 }
+
+#profile {
+  display: grid;
+  align-content: center;
+
+  position: absolute;
+  height: 3em;
+  top: 1em;
+  right: 2em;
+  color: gray;
+  text-align: right;
+  font-weight: 400;
+}

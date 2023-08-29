@@ -3,6 +3,9 @@ const getPlayButton = () => document.querySelector("#play-btn");
 const getBoard = () => document.querySelector("#board");
 const getGameOverDialog = () => document.querySelector("#game-over-dialog");
 
+let profile;
+fetch("/auth/profile").then((userDetails) => (profile = userDetails));
+
 const getRoomStatus = () => {
   return fetch(resolveURL("status")).then((res) => res.json());
 };
