@@ -2,6 +2,7 @@ const getPlayerList = () => document.querySelector("#players");
 const getPlayButton = () => document.querySelector("#play-btn");
 const getBoard = () => document.querySelector("#board");
 const getGameOverDialog = () => document.querySelector("#game-over-dialog");
+const getRoomInfoDiv = () => document.querySelector("#room-info");
 
 /* eslint-disable complexity */
 let profile;
@@ -98,7 +99,7 @@ const update = () => {
 };
 
 const keepUpdating = () => {
-  setInterval(update, 2000);
+  setInterval(update, 1000);
   update();
 };
 
@@ -120,9 +121,16 @@ const attachListeners = () => {
   });
 };
 
+const setRoomInfo = () => {
+  const roomInfo = getRoomInfoDiv();
+  // TODO: Do it with a server request
+  roomInfo.innerText = `Room ID: ${location.href.split("/").at(-1)}`;
+};
+
 const main = () => {
   attachListeners();
   keepUpdating();
+  setRoomInfo();
 };
 
 window.onload = main;
